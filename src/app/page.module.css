@@ -13,7 +13,15 @@
   font-family: var(--font-geist-sans);
 }
 
-.main {
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
