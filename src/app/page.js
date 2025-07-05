@@ -5,7 +5,7 @@ export async function generateMetadata({ searchParams }) {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
   
   const imageUrl = image 
-    ? `${process.env.R2_PUBLIC_URL}/${image}`
+    ? `${process.env.R2_PUBLIC_URL}/citizenship-test/${image}`
     : "https://cover-art.kasra.codes/citizenship_test_rectangle.png";
 
   console.log('Returning fc:frame with imageUrl:', imageUrl);
