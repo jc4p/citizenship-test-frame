@@ -18,7 +18,7 @@ export async function generateMetadata({ searchParams }) {
         version: "next",
         imageUrl,
         button: {
-          title: "Start Test",
+          title: "Test Your USA Knowledge",
           action: {
             type: "launch_frame",
             name: "US Citizenship Test",
