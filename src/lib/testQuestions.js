@@ -494,7 +494,8 @@ export const testQuestions = [
       "oldest member of the Constitutional Convention",
       "first Postmaster General of the United States",
       "writer of \"Poor Richard's Almanac\"",
-      "started the first free libraries"
+      "started the first free libraries",
+      "being a founding father"
     ]
   },
   {
