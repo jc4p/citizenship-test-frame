@@ -73,8 +73,8 @@ export function Quiz() {
   const handleShare = async () => {
     const passed = score.score >= 6;
     const castText = passed
-      ? `I passed the US Citizenship Test with a score of ${score.score}/10! HU-RAH! 🦅🦅🦅`
-      : `I failed the US Citizenship Test with a score of ${score.score}/10. I need to study America more...`;
+      ? `I passed the US Citizenship Test with a score of ${score.score}/10! HU-RAH! 🦅🦅🦅 Are you brave enough to try?`
+      : `I failed the US Citizenship Test with a score of ${score.score}/10. Can you beat my score and prove you're American?`;
 
     const response = await fetch('/api/create-share-link', {
       method: 'POST',
