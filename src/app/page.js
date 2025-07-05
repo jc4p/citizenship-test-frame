@@ -8,8 +8,6 @@ export async function generateMetadata({ searchParams }) {
     ? `${process.env.R2_PUBLIC_URL}/citizenship-test/${image}`
     : "https://cover-art.kasra.codes/citizenship_test_rectangle.png";
 
-  console.log('Returning fc:frame with imageUrl:', imageUrl);
-
   return {
     title: 'Can You Pass The US Citizenship Test?',
     description: 'A quiz to test your knowledge of US civics.',
