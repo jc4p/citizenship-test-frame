@@ -6,7 +6,7 @@ export async function generateMetadata({ searchParams }) {
   
   const imageUrl = image 
     ? `${process.env.R2_PUBLIC_URL}/${image}`
-    : "https://placehold.co/600x400/1d3557/ffffff/png?text=US+Citizenship+Test";
+    : "https://cover-art.kasra.codes/citizenship_test_rectangle.png";
 
   console.log('Returning fc:frame with imageUrl:', imageUrl);
 
@@ -18,13 +18,13 @@ export async function generateMetadata({ searchParams }) {
         version: "next",
         imageUrl,
         button: {
-          title: "Try now!",
+          title: "Start Test",
           action: {
             type: "launch_frame",
-            name: "citizenship-test",
+            name: "US Citizenship Test",
             url: baseUrl,
-            splashImageUrl: "https://placehold.co/200x200/1d3557/ffffff/png?text=Loading...",
-            splashBackgroundColor: "#1d3557"
+            splashImageUrl: "https://cover-art.kasra.codes/citizenship_test_square.png",
+            splashBackgroundColor: "#002868"
           }
         }
       })

@@ -44,14 +44,12 @@ export async function shareCastIntent(castText, embedUrl) {
   }
 
   try {
-    const finalComposeUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(castText)}&embeds[]=${encodeURIComponent(embedUrl)}`;
-    
     // Ensure the SDK is available and has the necessary methods
-    if (!frame || !frame.sdk || !frame.sdk.actions || !frame.sdk.actions.openUrl) {
-        throw new Error('Farcaster SDK or actions.openUrl not available.');
+    if (!frame || !frame.sdk || !frame.sdk.actions || !frame.sdk.actions.composeCast) {
+        throw new Error('Farcaster SDK or actions.composeCast not available.');
     }
 
-    await frame.sdk.actions.openUrl({ url: finalComposeUrl });
+    await frame.sdk.actions.composeCast({ text: castText, embeds: [embedUrl] });
     // console.log('Successfully opened Warpcast compose intent:', finalComposeUrl);
   } catch (error) {
     console.error('Error in shareCastIntent opening URL:', error);
