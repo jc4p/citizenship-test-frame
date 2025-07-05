@@ -1,0 +1,17 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjk3NzIzMywidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweGE2N0JhMDI4MTIzMWVCOUUyZWE0Y0Y5Nzg5NGMwYjBiNUI4MDFDYzYifQ",
+    "payload": "eyJkb21haW4iOiJjaXRpemVuc2hpcC5rYXNyYS5jb2RlcyJ9",
+    "signature": "MHgxNWM2ZDRhNzc2NDQ3YTNlNWNjYzJhMzFmYWQwOTcyZjQzNTNhZjJhNzVkNDc0NzUxMGE5MDM4YTk1NTliNGRkNjRiOGM2MmRjZGI1YzBjMjMxZTUzOWE3YjQ5OWM2MTExYWMwYmMzZThhOGE0NzdmNTZiZmE5ZmU4M2E5OWE0NjFi"
+  },
+  "frame": {
+    "version": "1",
+    "name": "US Citizenship Test",
+    "iconUrl": "https://cover-art.kasra.codes/citizenship_test_square.png",
+    "homeUrl": "https://citizenship.kasra.codes",
+    "imageUrl": "https://cover-art.kasra.codes/citizenship_test_rectangle.png",
+    "buttonTitle": "Start Test",
+    "splashImageUrl": "https://cover-art.kasra.codes/citizenship_test_square.png",
+    "splashBackgroundColor": "#002868"
+  }
+}
