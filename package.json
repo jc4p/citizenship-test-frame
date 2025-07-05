@@ -1,7 +1,8 @@
 {
-  "name": "what-x-are-you-template",
+  "name": "citizenship-test-frame",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

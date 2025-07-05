@@ -1,11 +1,11 @@
-# What X Are You - Farcaster Frame Template
+# US Citizenship Test - Farcaster Frame
 
 ## Overview
 
-A Farcaster mini-app template that analyzes user profiles and casts to determine their or whatever you want.
+A Farcaster mini-app that tests your knowledge of US civics with questions from the official US Citizenship Test. Take a 10-question quiz and see if you can pass!
 
-- **Neynar API** - Fetches Farcaster user data and casts
-- **Google Gemini API** - AI analysis of user personality traits
+- **Quiz Engine** - Randomly selects 10 questions from the official 100-question USCIS civics test
+- **Google Gemini API** - AI-powered grading that understands context and accepts non-verbatim correct answers
 - **Cloudflare R2** (optional) - Stores shareable result images
 
 ## Getting Started
@@ -30,8 +30,8 @@ Open the Terminal app and run:
 
 ```bash
 cd ~/Documents/
-git clone https://github.com/jc4p/what-x-are-you-template
-cd what-x-are-you-template
+git clone https://github.com/your-username/citizenship-test-frame
+cd citizenship-test-frame
 ```
 
 ### 3. Set Up Environment Variables
@@ -47,7 +47,6 @@ This creates a `.env.local` file with the following structure:
 
 ```bash
 # Required
-NEYNAR_API_KEY=your_neynar_api_key_here
 GEMINI_API_KEY=your_gemini_api_key_here
 
 # So the app knows what it's URL is
@@ -65,14 +64,7 @@ R2_PUBLIC_URL=https://your-bucket-url.r2.dev
 
 Now you'll need to get the API keys and fill them into your `.env.local` file:
 
-#### Neynar API Key
-1. Go to [neynar.com](https://neynar.com)
-2. Sign up and navigate to the dashboard
-3. Create a new app
-4. Copy your API key
-5. Replace `your_neynar_api_key_here` in your `.env.local` file
-
-#### Google Gemini API Key
+#### Google Gemini API Key (Required)
 1. Visit [aistudio.google.com](https://aistudio.google.com)
 2. Sign in with your Google account
 3. Click "Get API key" on the top right of the page
@@ -104,24 +96,16 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-**Note**: This app is designed to run inside a Farcaster Frame. Opening the page alone will just show "Waiting for frame context..."
+**Note**: This app is designed to run inside a Farcaster Frame. To test locally, you'll need to use the Farcaster Frame Debugger (see below).
 
-## Development Guide
+## How It Works
 
-### Updating the quiz
+1. **Question Selection**: The app randomly selects 10 questions from the official 100-question USCIS civics test
+2. **Answer Input**: Users type their answers in a text field (pressing Enter advances to the next question)
+3. **AI Grading**: Google's Gemini AI evaluates answers - it understands context and accepts non-verbatim correct answers
+4. **Pass/Fail**: You need 6 out of 10 correct to pass (same as the real test)
+5. **Share Results**: Share your score on Farcaster with a custom message
 
-The intent of this template is for you to update to be any "What [..] are you?", it has Hogwarts house as the default to show you how to do this.
-
-In `src/lib/gemini.js` you will see two things:
-
-1. The output format we want from Gemini, at the top of the file. This is the end data we show the user.
-2. The prompt we send Gemini in the middle of the file.
-
-In `src/compoments/HomeComponent.jsx` you will find the entire front-end logic.
-
-Any changes you make to the schema in `gemini.js` will need to be reflected in the `HomeComponent.jsx`, that is the file responsible for taking the extracted data from Gemini and rendering it to the user.
-
-You can update both files using vibe coding to modify it into any format you want or to reorder the components on the page or add any new visualizations you want.
 
 ## Loading in Farcaster debugger
 
@@ -155,70 +139,63 @@ ngrok http 3000 --url your-project-name.ngrok.app
 
 ### 4. Test Your Frame
 1. Copy the ngrok URL (e.g., `https://your-project-name.ngrok.app`)
-2. Paste it into https://farcaster.xyz/~/developers/mini-apps/preview and hit enter
-3. Hit "Open URL as Mini App"
+2. Update the `NEXT_PUBLIC_APP_URL` in your `.env.local` file to match your ngrok URL
+3. Restart your development server
+4. Paste the ngrok URL into https://farcaster.xyz/~/developers/mini-apps/preview and hit enter
+5. Hit "Open URL as Mini App"
 
-### Cursor/AI Coding Prompts
+### Customization Ideas
 
-Some starter effective prompts:
+#### Add More Questions
+- The full test bank is in `/src/lib/testQuestions.js`
+- Currently includes all 100 official USCIS civics questions
+- Questions are automatically randomized for each quiz
 
-#### Understanding the codebase
-```
-"Analyze the codebase and give me a step by step breakdown of how it works and where I can make modifications"
-```
+#### Adjust Difficulty
+- Change the number of questions (currently 10)
+- Modify the passing score (currently 6/10)
+- Add time limits or other constraints
 
-#### Adding New Analysis Types
-```
-"Update the analysis prompt and frontend to what [Pokemon/Marvel character/etc] the user is most like. Follow the existing Hogwarts House pattern in gemini.js, create a new schema, and update the HomeComponent to display the results."
-```
-
-#### Customizing Visual Design
-```
-"Update the UI design to have a [dark mode/cyberpunk/minimalist] theme. Modify the CSS modules and color schemes while maintaining the existing component structure."
-```
+#### Enhance the UI
+- Modify styles in `/src/components/Quiz.module.css`
+- Add animations or visual feedback
+- Create custom themes
 
 ## File Structure
 
 ### Core Files
 
-#### `/src/components/HomeComponent.jsx`
-The main UI component that:
-- Detects Farcaster Frame context
-- Fetches user analysis from the API
-- Displays results with house colors and percentages
-- Handles sharing functionality (works with or without R2)
+#### `/src/components/Quiz.jsx`
+The main quiz component that:
+- Manages quiz state and navigation
+- Handles answer submission
+- Displays results and sharing options
+- Shows progress through the quiz
+
+#### `/src/lib/testQuestions.js`
+Contains all 100 official USCIS civics test questions:
+- Each question has multiple acceptable answers
+- Questions cover US history, government, and civics
+- Updated with current political figures (as of 2025)
 
 #### `/src/lib/gemini.js`
-Gemini AI integration:
-- Defines the analysis schema for Hogwarts Houses
-- Sends user bio and casts to Gemini
-- Returns structured analysis with house percentages and evidence
-
-#### `/src/lib/neynar.js`
-Neynar API integration:
-- `getUserDataFromNeynar()` - Fetches user profile data
-- `getRecentCastTexts()` - Retrieves user's recent casts with pagination
+Gemini AI integration for intelligent grading:
+- Evaluates answers using context understanding
+- Accepts non-verbatim correct answers
+- Returns detailed scoring with explanations
 
 #### `/src/lib/frame.js`
 Farcaster Frame SDK initialization:
-- Detects Frame context
-- Extracts user FID
-- Signals frame ready state
-
-#### `/src/lib/r2.js`
-Cloudflare R2 integration (optional):
-- Uploads generated share images
-- Returns public URLs for sharing
-- Gracefully disabled if not configured
+- Sets up Frame context
+- Enables sharing functionality
+- Handles frame ready state
 
 ### API Routes
 
-#### `/src/app/api/user/route.js`
-Main analysis endpoint:
-- Accepts FID as query parameter
-- Fetches user data from Neynar
-- Runs Gemini analysis
-- Returns combined results
+#### `/src/app/api/score/route.js`
+Quiz scoring endpoint:
+- Sends quiz answers to Gemini for evaluation
+- Returns score and detailed results
 
 #### `/src/app/api/create-share-link/route.js`
 Share link generation:
@@ -240,17 +217,24 @@ Open Graph image generator:
 #### `/src/components/FrameInit.jsx`
 - Client-side Frame initialization wrapper
 
-## Customization Tips
+## Features
 
-1. **Change Analysis Theme**: Modify the schema in `gemini.js` to analyze for different categories
-2. **Update Styling**: Edit CSS modules in component folders
-3. **Add New API Integrations**: Create new files in `/src/lib/`
-4. **Extend Analysis**: Add more data sources in the `/api/user` route
-5. **Custom Sharing**: Modify the OG image template in `/api/og`
+- **Authentic Questions**: All 100 official USCIS civics test questions
+- **Smart Grading**: AI understands context - "Washington" counts for "George Washington"
+- **Current Information**: Updated with current political leaders (as of 2025)
+- **User-Friendly**: Navigate with Previous/Next buttons or press Enter
+- **Share Results**: Brag about your score (or commiserate) on Farcaster
+- **Pass/Fail Feedback**: Get encouraging or motivating messages based on your performance
 
 ## Troubleshooting
 
-- **"Not in frame context"**: The app must be opened within a Farcaster client
-- **API errors**: Check your environment variables are set correctly
+- **"Loading questions..."**: Check that the questions file is properly loaded
+- **Scoring errors**: Ensure your Gemini API key is valid and has available quota
 - **Share button fails**: R2 configuration is optional; sharing works without R2 but won't include custom images
-- **No user data**: Ensure the FID exists and Neynar API key is valid
+- **Frame not loading**: Make sure you're testing within the Farcaster Frame debugger
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+Note: The US Citizenship test questions are from the official USCIS civics test and are in the public domain.
